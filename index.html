@@ -2,10 +2,29 @@
 <html>
 <head>
 	<title>Sound Experiment</title>
+	<link rel="stylesheet" type="text/css" href="lib/css/app.css">
 </head>
 <body>
-	<a href="#" id="start">Start</a>
-	<a href="#" id="stop">Stop</a>
+	<div class="wrapper">
+
+		<h1>Web Audio API &amp; P5 sound experiments</h1>
+
+		<h2>Web Audio API, no libraries used</h2>
+		<h3>Click below to start or stop the oscillator</h3>
+		<a href="#" id="start">Start</a>
+		<a href="#" id="stop">Stop</a><br><br>
+
+		<h3>Click each note to hear it's tone as a sine wave</h3>
+		<a class="playNote" href="#" id="c4">C4 (Middle C), 261.6 Hz</a><br>
+		<a class="playNote" href="#" id="d4">D4, 293.7 Hz</a><br>
+		<a class="playNote" href="#" id="e4">E4, 329.6 Hz</a><br>
+		<a class="playNote" href="#" id="f4">F4, 349.2 Hz</a><br>
+		<a class="playNote" href="#" id="g4">G4, 392.0 Hz</a><br>
+		<a class="playNote" href="#" id="a4">A4, 440.0 Hz</a><br>
+		<a class="playNote" href="#" id="b4">B4, 493.9 Hz</a><br>
+		<a class="playNote" href="#" id="c5">C5, 523.3 Hz</a><br>	
+
+	</div>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/p5.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.16/addons/p5.sound.min.js"></script>
 	<script type="text/javascript" src="lib/js/app.js"></script>
