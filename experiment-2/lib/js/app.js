@@ -29,29 +29,31 @@ function VCO(context) {
 	this._hasStarted = false;
 };
 
-VCO.prototype.start = function(){
-	if (!this._hasStarted) {
-		this.oscillator.start(0);	
-		this._hasStarted = true;	
+VCO.prototype = {
+	
+	constructor: VCO,
+	start: function(){
+		if (!this._hasStarted) {
+			this.oscillator.start(0);	
+			this._hasStarted = true;	
+		}
+	},
+	stop: function(){
+		if (this._hasStarted) {
+			this.oscillator.stop(0);
+		}
+	},
+	setFrequency: function(frequency) {
+		this.oscillator.frequency.setValueAtTime(frequency, context.currentTime);
+	},
+	connect: function(node) {
+		if (node.hasOwnProperty('input')) {
+			this.output.connect(node.input);
+		} else {
+			this.output.connect(node);
+		}
 	}
-}
 
-VCO.prototype.stop = function(){
-	if (this._hasStarted) {
-		this.oscillator.stop(0);
-	}
-}
-
-VCO.prototype.setFrequency = function(frequency) {
-	this.oscillator.frequency.setValueAtTime(frequency, context.currentTime);
-};
-
-VCO.prototype.connect = function(node) {
-	if (node.hasOwnProperty('input')) {
-		this.output.connect(node.input);
-	} else {
-		this.output.connect(node);
-	};
 }
 
 // Melody generator definition
@@ -88,6 +90,18 @@ Generator.prototype = {
 
 }
 
+function Circle(noteValue,noteDuration) {
+
+	this.note = noteValue;
+	this.duration = noteDuration;
+	this._fillColour = "#FF0000"; // Red 
+
+}
+
+Circle.prototype = {
+	constructor: Circle,
+
+}
 
 /****************************
 ******* Main Program ********
