@@ -104,6 +104,7 @@ function Circle(noteValue,noteDuration) {
 	this._redVal = Math.floor(this._yPos/height * 255);
 	this._opacity = 255;
 	this._fillColour;
+	this.destroy = false;
 
 }
 
@@ -117,8 +118,9 @@ Circle.prototype = {
 		ellipse(this._xPos, this._yPos, this._diameter, this._diameter);
 		if (this._opacity > 0) {
 			this._opacity--;			
+		} else {
+			this._destroy = true;
 		}
-		console.log(this._opacity);
 	}
 
 }
@@ -161,6 +163,9 @@ function draw() {
 	if (circles.length) {
 		for (var i = 0; i < circles.length; i++) {
 			circles[i].display();
+			if (circles[i].destroy) {
+				circles[i] = null;
+			}
 		}
 	}
 }
