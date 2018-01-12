@@ -97,10 +97,11 @@ function Circle(noteValue,noteDuration) {
 
 	this.note = noteValue;
 	this.duration = noteDuration;
-	this._fillColour = "#FF0000"; // Red
 	this._xPos = Math.floor(Math.random()*width);
 	this._yPos = Math.floor(height - noteValue);
-	this._diameter = 50;
+	this._diameter = Math.floor(Math.random()*(70-40+1)+40);
+	this._redVal = Math.floor(this._yPos/height * 255);
+	this._fillColour = color(255,this._redVal,0);
 
 }
 
