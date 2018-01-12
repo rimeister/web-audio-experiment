@@ -30,7 +30,7 @@ function VCO(context) {
 };
 
 VCO.prototype = {
-	
+
 	constructor: VCO,
 	start: function(){
 		if (!this._hasStarted) {
@@ -75,8 +75,11 @@ Generator.prototype = {
 
 		function changeNote() {
 			var randomInt = getRandomNoteDuration(60,16);
+			var randomNote = cMajorScale[Math.floor((Math.random() * 8))];
 		    thisGenerator._timeout = setTimeout(changeNote, randomInt);
-		    thisGenerator.vco.setFrequency( cMajorScale[Math.floor((Math.random() * 8))] ); // put random note here
+		    thisGenerator.vco.setFrequency(randomNote); // put random note here
+		    var addCircle = new Circle(randomNote,randomInt);
+		    addCircle.display();
 		}
 		
 		this._timeout = setTimeout(changeNote, getRandomNoteDuration(60,16));
@@ -94,12 +97,21 @@ function Circle(noteValue,noteDuration) {
 
 	this.note = noteValue;
 	this.duration = noteDuration;
-	this._fillColour = "#FF0000"; // Red 
+	this._fillColour = "#FF0000"; // Red
+	this._xPos = Math.floor(Math.random()*width);
+	this._yPos = Math.floor(height - noteValue);
+	this._diameter = 50;
 
 }
 
 Circle.prototype = {
+
 	constructor: Circle,
+	display: function() {
+		fill(this._fillColour);
+		noStroke();
+		ellipse(this._xPos, this._yPos, this._diameter, this._diameter);
+	}
 
 }
 
