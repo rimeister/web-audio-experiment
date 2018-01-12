@@ -7,6 +7,7 @@
 var startBtn = document.getElementById("start");
 var stopBtn = document.getElementById("stop");
 var noteBtns = document.getElementsByClassName("playNote");
+var circles = [];
 
 // Frequencies of notes in the C Major scale, from C4 to C5
 var cMajorScale = [261.6,293.7,329.6,349.2,392.0,440.0,493.9,523.3]
@@ -78,8 +79,8 @@ Generator.prototype = {
 			var randomNote = cMajorScale[Math.floor((Math.random() * 8))];
 		    thisGenerator._timeout = setTimeout(changeNote, randomInt);
 		    thisGenerator.vco.setFrequency(randomNote); // put random note here
-		    var addCircle = new Circle(randomNote,randomInt);
-		    addCircle.display();
+		    var newCircle = new Circle(randomNote,randomInt);
+		    circles.push(newCircle);
 		}
 		
 		this._timeout = setTimeout(changeNote, getRandomNoteDuration(60,16));
@@ -101,7 +102,8 @@ function Circle(noteValue,noteDuration) {
 	this._yPos = Math.floor(height - noteValue);
 	this._diameter = Math.floor(Math.random()*(70-40+1)+40);
 	this._redVal = Math.floor(this._yPos/height * 255);
-	this._fillColour = color(255,this._redVal,0);
+	this._opacity = 255;
+	this._fillColour;
 
 }
 
@@ -109,9 +111,14 @@ Circle.prototype = {
 
 	constructor: Circle,
 	display: function() {
+		this._fillColour = color(255,this._redVal,0,this._opacity)
 		fill(this._fillColour);
 		noStroke();
 		ellipse(this._xPos, this._yPos, this._diameter, this._diameter);
+		if (this._opacity > 0) {
+			this._opacity--;			
+		}
+		console.log(this._opacity);
 	}
 
 }
@@ -147,6 +154,15 @@ var myGenerator = new Generator(myVCO,60,8);
 
 function setup() {
 	createCanvas(window.innerWidth,window.innerHeight)
+}
+
+function draw() {
+	background(255);
+	if (circles.length) {
+		for (var i = 0; i < circles.length; i++) {
+			circles[i].display();
+		}
+	}
 }
 
 /****************************
